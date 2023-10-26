@@ -2,8 +2,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public
@@ -23,13 +21,15 @@ class DataHandler {
         }
     }
 
-    public void updateData(String key, int value) {
+    public boolean updateData(String key, String name, int value) {
         List<String> lines = getData();
 
+        boolean updated = false;
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             if (line.split(":")[0].equals(key)) {
-                lines.set(i, key + ": " + value);
+                lines.set(i, name + ": " + value);
+                updated = true;
             }
         }
 
@@ -38,15 +38,19 @@ class DataHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return updated;
     }
 
-    public void deleteData(String key) {
+    public boolean deleteData(String key) {
         List<String> lines = getData();
 
+        boolean deleted = false;
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             if (line.split(":")[0].equals(key)) {
                 lines.remove(i);
+                deleted = true;
             }
         }
 
@@ -55,6 +59,8 @@ class DataHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return deleted;
     }
 
     public void newData(String key, int i) {
