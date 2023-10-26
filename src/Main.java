@@ -105,14 +105,11 @@ public class Main {
                     newName = name;
                 }
 
-
                 if (dataHandler.updateData(name, newName, age)) {
                     System.out.println("Updated entry - " + newName + ": " + age);
                 } else {
                     System.out.println("Could not find entry - " + name);
                 }
-
-
 
                 break;
             case 4:
@@ -122,6 +119,7 @@ public class Main {
 
                 break;
             default:
+                System.out.println("That is not a valid choice.");
                 break;
         }
 
